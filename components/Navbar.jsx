@@ -1,10 +1,10 @@
 'use client'
-import { PackageIcon, Search, ShoppingCart, ShoppingCartIcon } from "lucide-react";
+import { PackageIcon, Search, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useUser, useClerk, UserButton } from "@clerk/nextjs";
+import {useUser, useClerk, UserButton, Protect} from "@clerk/nextjs"
 
 const Navbar = () => {
 
@@ -26,10 +26,13 @@ const Navbar = () => {
                 <div className="flex items-center justify-between max-w-7xl mx-auto py-4  transition-all">
 
                     <Link href="/" className="relative text-4xl font-semibold text-slate-700">
-                        <span className="text-green-600">go</span>cart<span className="text-green-600 text-5xl leading-0">.</span>
-                        <p className="absolute text-xs font-semibold -top-1 -right-8 px-3 p-0.5 rounded-full flex items-center gap-2 text-white bg-green-500">
+                        <span className="text-green-600">shoe</span>craft<span className="text-green-600 text-5xl leading-0">.</span>
+                        <Protect plan='plus'>
+                             <p className="absolute text-xs font-semibold -top-1 -right-8 px-3 p-0.5 rounded-full flex items-center gap-2 text-white bg-green-500">
                             plus
-                        </p>
+                            </p>
+                        </Protect>
+                       
                     </Link>
 
                     {/* Desktop Menu */}
@@ -58,13 +61,12 @@ const Navbar = () => {
                         ) : (
                             <UserButton>
                                 <UserButton.MenuItems>
-                                    <UserButton.Action labelIcon={<PackageIcon size=
-                                    {16}/>} label="My Orders" onClick={()=> router.push('/orders')}/>
+                                    <UserButton.Action labelIcon={<PackageIcon size={16}/>} label="My Orders" onClick={()=> router.push('/orders')}/>
                                 </UserButton.MenuItems>
                             </UserButton>
                         )
                     }
-                         
+                        
 
                     </div>
 
@@ -74,14 +76,12 @@ const Navbar = () => {
                             <div>
                             <UserButton>
                                 <UserButton.MenuItems>
-                                    <UserButton.Action labelIcon={<ShoppingCartIcon size=
-                                    {16}/>} label="Cart" onClick={()=> router.push('/cart')}/>
+                                    <UserButton.Action labelIcon={<ShoppingCart size={16}/>} label="Cart" onClick={()=> router.push('/cart')}/>
                                 </UserButton.MenuItems>
                             </UserButton>
                             <UserButton>
                                 <UserButton.MenuItems>
-                                    <UserButton.Action labelIcon={<PackageIcon size=
-                                    {16}/>} label="My Orders" onClick={()=> router.push('/orders')}/>
+                                    <UserButton.Action labelIcon={<PackageIcon size={16}/>} label="My Orders" onClick={()=> router.push('/orders')}/>
                                 </UserButton.MenuItems>
                             </UserButton>
                             </div>
@@ -90,7 +90,6 @@ const Navbar = () => {
                             Login
                         </button>
                         )
-
                         }
                         
                     </div>
